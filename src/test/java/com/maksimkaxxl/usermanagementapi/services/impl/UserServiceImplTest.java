@@ -8,6 +8,7 @@ import com.maksimkaxxl.usermanagementapi.exceptions.UserNotFoundException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserUnderAgeException;
 import com.maksimkaxxl.usermanagementapi.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +36,7 @@ class UserServiceImplTest {
 
 
     @Test
+    @DisplayName("Should create user with valid user DTO")
     void createUser_ValidUserDto_ShouldCreateUser() {
         // Arrange
         UserDto userDto = new UserDto("test@example.com", "John", "Doe", LocalDate.of(2000, 1, 1), "123 Main St", "1234567890");
@@ -50,6 +52,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw UserUnderAgeException for user under 18 years old")
     void createUser_UserUnderAge_ShouldThrowUserUnderAgeException() {
         // Arrange
         LocalDate birthDate = LocalDate.now().minusYears(15);
@@ -62,6 +65,7 @@ class UserServiceImplTest {
 
 
     @Test
+    @DisplayName("Should throw UserAlreadyExistsException for user with existing email")
     void createUser_UserAlreadyExists_ShouldThrowUserAlreadyExistsException() {
         // Arrange
         UserDto userDto = new UserDto("test@example.com", "John", "Doe", LocalDate.of(2000, 1, 1), "123 Main St", "1234567890");
@@ -72,6 +76,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should update user with valid user DTO")
     void updateUser_ValidUserDto_ShouldUpdateUser() {
         // Arrange
         Long userId = 1L;
@@ -96,6 +101,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw UserNotFoundException when user to update is not found")
     void updateUser_UserNotFound_ShouldThrowUserNotFoundException() {
         // Arrange
         Long userId = 1L;
@@ -107,6 +113,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should update all user fields with valid user DTO")
     void updateAllUserFields_ValidUserDto_ShouldUpdateAllUserFields() {
         // Arrange
         Long userId = 1L;
@@ -131,6 +138,7 @@ class UserServiceImplTest {
 
 
     @Test
+    @DisplayName("Should throw UserNotFoundException when user to update all fields is not found")
     void updateAllUserFields_UserNotFound_ShouldThrowUserNotFoundException() {
         // Arrange
         Long userId = 1L;
@@ -142,6 +150,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should delete user when user exists")
     void deleteUser_UserExists_ShouldDeleteUser() {
         // Arrange
         Long userId = 1L;
@@ -157,6 +166,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw UserNotFoundException when user to delete is not found")
     void deleteUser_UserNotFound_ShouldThrowUserNotFoundException() {
         // Arrange
         Long userId = 1L;
@@ -167,6 +177,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should return list of users for valid birth date range")
     void searchUsersByBirthDateRange_ValidDates_ShouldReturnListOfUsers() {
         // Arrange
         LocalDate fromDate = LocalDate.of(1990, 1, 1);
@@ -182,6 +193,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Should throw InvalidRequestException when from date is after to date")
     void searchUsersByBirthDateRange_FromDateAfterToDate_ShouldThrowInvalidRequestException() {
         // Arrange
         LocalDate fromDate = LocalDate.of(2000, 1, 1);
