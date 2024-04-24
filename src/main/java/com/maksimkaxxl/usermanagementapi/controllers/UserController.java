@@ -31,10 +31,11 @@ public class UserController {
         return ResponseEntity.ok(userService.updateAllUserFields(id, userDto));
     }
 
-
-
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id, @RequestBody UserDto userDto) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
