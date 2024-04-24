@@ -2,6 +2,7 @@ package com.maksimkaxxl.usermanagementapi.services.impl;
 
 import com.maksimkaxxl.usermanagementapi.dtos.UserDto;
 import com.maksimkaxxl.usermanagementapi.entities.User;
+import com.maksimkaxxl.usermanagementapi.exceptions.InvalidRequestException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserAlreadyExistsException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserNotFoundException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserUnderAgeException;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -105,8 +105,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> searchUsersByBirthDateRange(Date from, Date to) {
-        return null;
+    public List<User> searchUsersByBirthDateRange(LocalDate from, LocalDate to) {
+        if (from.isAfter(to)) {
+            throw new InvalidRequestException("'From' date should be before 'To' date");
+        }
+        return userRepository.findByBirthDateBetween(from, to);
     }
 
     private boolean isOver18(LocalDate birthDate) {

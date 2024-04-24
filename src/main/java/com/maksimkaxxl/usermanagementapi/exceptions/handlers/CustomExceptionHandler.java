@@ -1,5 +1,6 @@
 package com.maksimkaxxl.usermanagementapi.exceptions.handlers;
 
+import com.maksimkaxxl.usermanagementapi.exceptions.InvalidRequestException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserAlreadyExistsException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserNotFoundException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserUnderAgeException;
@@ -37,5 +38,13 @@ public class CustomExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(InvalidRequestException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleInvalidRequestException(InvalidRequestException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 }

@@ -3,6 +3,7 @@ package com.maksimkaxxl.usermanagementapi.services;
 import com.maksimkaxxl.usermanagementapi.dtos.UserDto;
 import com.maksimkaxxl.usermanagementapi.entities.User;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface UserService {
 
     void deleteUser(Long id);
 
-    List<User> searchUsersByBirthDateRange(Date from, Date to);
+    List<User> searchUsersByBirthDateRange(LocalDate from, LocalDate to);
 }

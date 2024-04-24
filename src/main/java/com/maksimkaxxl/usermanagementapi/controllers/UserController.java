@@ -5,9 +5,13 @@ import com.maksimkaxxl.usermanagementapi.entities.User;
 import com.maksimkaxxl.usermanagementapi.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +39,14 @@ public class UserController {
     public ResponseEntity<Void> deleteUserById(@PathVariable Long id, @RequestBody UserDto userDto) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsersByBirthDateRange(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
+                                                                  @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to) {
+        List<User> users = userService.searchUsersByBirthDateRange(from, to);
+        return ResponseEntity.ok(users);
     }
 
 
