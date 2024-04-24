@@ -20,5 +20,5 @@ public record UserDto(
         @Past
         Date birthDate,
         String address,
-        String phoneNumber) {
+        String phone) {
 }
