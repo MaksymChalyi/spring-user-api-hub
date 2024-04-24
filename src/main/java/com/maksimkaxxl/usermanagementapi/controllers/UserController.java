@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,6 +20,21 @@ public class UserController {
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(userDto));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.updateUser(id, userDto));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> updateAllUserFields(@PathVariable Long id, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.updateAllUserFields(id, userDto));
+    }
+
+
+
+
+
 
 
 }

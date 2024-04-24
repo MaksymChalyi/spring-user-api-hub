@@ -1,6 +1,7 @@
 package com.maksimkaxxl.usermanagementapi.exceptions.handlers;
 
 import com.maksimkaxxl.usermanagementapi.exceptions.UserAlreadyExistsException;
+import com.maksimkaxxl.usermanagementapi.exceptions.UserNotFoundException;
 import com.maksimkaxxl.usermanagementapi.exceptions.UserUnderAgeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,13 @@ public class CustomExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 }
