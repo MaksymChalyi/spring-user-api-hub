@@ -80,3 +80,8 @@ The project is built on Spring Boot version 3.2.5.
 
 ### License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+
+
+----
+
+**Developed by Maksym Chalyi in 2024.**
